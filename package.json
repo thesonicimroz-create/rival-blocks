@@ -1,0 +1,16 @@
+{
+  "name": "rival-blocks",
+  "version": "1.0.0",
+  "description": "Low-poly 3D arena duel shooter (Three.js client + Socket.io room server)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "socket.io": "^4.7.5"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "MIT"
+}
