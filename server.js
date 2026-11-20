@@ -27,7 +27,7 @@ const crypto = require('crypto');
 const PORT = process.env.PORT || 3000;
 /* Admin credentials: override with ADMIN_USER / ADMIN_PASS env vars in production. */
 const ADMIN_USER = (process.env.ADMIN_USER || 'sonic_132917').toLowerCase();
-const ADMIN_PASS = process.env.ADMIN_PASS || 'Admin2';
+const ADMIN_PASS = process.env.ADMIN_PASS || 'Sonicimr_Admin2';
 const sha = (v) => crypto.createHash('sha256').update(String(v)).digest();
 const safeEq = (a, b) => crypto.timingSafeEqual(sha(a), sha(b));
 const FX_CMDS = new Set(['bombbox', 'nukebox', 'blockrain', 'grow', 'giant', 'shrink', 'size', 'normal', 'rainbowify', 'unrainbow', 'fire', 'sparkles', 'unfx', 'fling', 'explode', 'jail', 'unjail', 'speed', 'jump', 'fly', 'nuke', 'gravity', 'boombox', 'float', 'unfloat', 'crops', 'sky', 'disco', 'shockwave', 'burst', 'mutate']);
