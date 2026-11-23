@@ -327,10 +327,22 @@ io.on('connection', (socket) => {
     const r = rooms.get(socket.data.room);
     if (!r || r.hostId !== socket.id || r.phase !== 'lobby' || !data) return;
     if (MAPS.includes(data.map)) r.map = data.map;
+    const oldMode = r.mode;
     if ((data.mode === '1v1' || data.mode === '2v2') && (data.mode === '2v2' || r.players.size <= 2)) {
       r.mode = data.mode;
     }
+    if (r.mode === '1v1' && oldMode !== '1v1') { let n = 0; r.players.forEach((p) => { p.team = n++ % 2; }); }
     emitRoom(r);
+  });
+
+  socket.on('team', (tm) => {
+    const r = rooms.get(socket.data.room), p = r && r.players.get(socket.id);
+    if (!p || r.phase !== 'lobby') return;
+    tm = tm === 1 ? 1 : 0;
+    const lim = r.mode === '2v2' ? 2 : 1;
+    let n = 0; r.players.forEach((q) => { if (q.id !== p.id && q.team === tm) n++; });
+    if (n >= lim) { socket.emit('err', 'That team is full'); return; }
+    p.team = tm; emitRoom(r);
   });
 
   socket.on('cos', (c) => {
